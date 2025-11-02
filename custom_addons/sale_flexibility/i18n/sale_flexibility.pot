@@ -1,0 +1,36 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_flexibility
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-02 10:42+0000\n"
+"PO-Revision-Date: 2025-11-02 10:42+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_flexibility
+#: model:ir.model.fields,field_description:sale_flexibility.field_sale_order__x_is_printed
+msgid "Is Printed"
+msgstr ""
+
+#. module: sale_flexibility
+#: model:ir.model.fields,help:sale_flexibility.field_sale_order__x_is_printed
+msgid "Indicates if this document has been printed. Once printed, fields become read-only."
+msgstr ""
+
+#. module: sale_flexibility
+#: model:ir.model.fields,field_description:sale_flexibility.field_stock_picking__x_is_printed
+msgid "Is Printed"
+msgstr ""
+
+#. module: sale_flexibility
+#: model:ir.model.fields,field_description:sale_flexibility.field_account_move__x_is_printed
+msgid "Is Printed"
+msgstr ""
