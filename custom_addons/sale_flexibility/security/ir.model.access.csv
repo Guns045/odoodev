@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_flexibility_user,sale.flexibility.user,sale.model_sale_order,base.group_user,1,1,1,1
+access_sale_flexibility_manager,sale.flexibility.manager,sale.model_sale_order,sales_team.group_sale_manager,1,1,1,1
+access_account_move_flexibility_user,account.move.flexibility.user,account.model_account_move,base.group_user,1,1,1,1
+access_account_move_flexibility_manager,account.move.flexibility.manager,account.model_account_move,account.group_account_manager,1,1,1,1
+access_stock_picking_flexibility_user,stock.picking.flexibility.user,stock.model_stock_picking,base.group_user,1,1,1,1
+access_stock_picking_flexibility_manager,stock.picking.flexibility.manager,stock.model_stock_picking,stock.group_stock_manager,1,1,1,1
+access_sale_flexibility_editor,sale.flexibility.editor,sale.model_sale_order,sale_flexibility.group_sales_document_editor,1,1,1,1
+access_account_flexibility_editor,account.flexibility.editor,account.model_account_move,sale_flexibility.group_accounting_document_editor,1,1,1,1
+access_stock_flexibility_editor,stock.flexibility.editor,stock.model_stock_picking,sale_flexibility.group_stock_document_editor,1,1,1,1

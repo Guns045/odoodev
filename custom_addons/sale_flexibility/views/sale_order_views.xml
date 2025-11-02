@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Sale Order Form View Inheritance -->
+        <record id="view_order_form_inherit_flexibility" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.flexibility</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <!-- Add x_is_printed field to the form (make it invisible in normal view) -->
+                <field name="state" position="after">
+                    <field name="x_is_printed" invisible="1"/>
+                </field>
+
+                <!-- Make date_order editable if not printed -->
+                <xpath expr="//field[@name='date_order']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make client_order_ref editable if not printed -->
+                <xpath expr="//field[@name='client_order_ref']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make partner_id editable if not printed -->
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make partner_shipping_id editable if not printed -->
+                <xpath expr="//field[@name='partner_shipping_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make currency_id editable if not printed -->
+                <xpath expr="//field[@name='currency_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make payment_term_id editable if not printed -->
+                <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make pricelist_id editable if not printed -->
+                <xpath expr="//field[@name='pricelist_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make validity_date editable if not printed -->
+                <xpath expr="//field[@name='validity_date']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make order line fields editable if not printed -->
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('parent.x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('parent.x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('parent.x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('parent.x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='discount']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('parent.x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make note field editable if not printed -->
+                <xpath expr="//field[@name='note']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Sale Order Tree View Inheritance - Add printed status indicator -->
+        <record id="view_order_tree_inherit_flexibility" model="ir.ui.view">
+            <field name="name">sale.order.tree.inherit.flexibility</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <field name="x_is_printed" widget="boolean_toggle" optional="show"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Add Kanban view printed status indicator -->
+        <record id="view_sale_order_kanban_inherit_flexibility" model="ir.ui.view">
+            <field name="name">sale.order.kanban.inherit.flexibility</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sale_order_kanban"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="x_is_printed"/>
+                </field>
+                <xpath expr="//div[hasclass('oe_kanban_content')]" position="inside">
+                    <div t-if="record.x_is_printed.raw_value" class="text-warning">
+                        <i class="fa fa-print"/> Printed
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

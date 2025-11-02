@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Stock Picking Form View Inheritance -->
+        <record id="view_picking_form_inherit_flexibility" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit.flexibility</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+
+                <!-- Add x_is_printed field to the form (make it invisible in normal view) -->
+                <field name="state" position="after">
+                    <field name="x_is_printed" invisible="1"/>
+                </field>
+
+                <!-- Make partner_id editable if not printed -->
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make origin editable if not printed -->
+                <xpath expr="//field[@name='origin']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make scheduled_date editable if not printed -->
+                <xpath expr="//field[@name='scheduled_date']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make priority editable if not printed -->
+                <xpath expr="//field[@name='priority']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make location_id editable if not printed -->
+                <xpath expr="//field[@name='location_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make location_dest_id editable if not printed -->
+                <xpath expr="//field[@name='location_dest_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make move line fields editable if not printed -->
+                <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('parent.x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('parent.x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+                <!-- Make note field editable if not printed -->
+                <xpath expr="//field[@name='note']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('x_is_printed', '=', True)]}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Stock Picking Tree View Inheritance - Add printed status indicator -->
+        <record id="view_picking_tree_inherit_flexibility" model="ir.ui.view">
+            <field name="name">stock.picking.tree.inherit.flexibility</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <field name="x_is_printed" widget="boolean_toggle" optional="show"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Add Kanban view printed status indicator -->
+        <record id="view_picking_kanban_inherit_flexibility" model="ir.ui.view">
+            <field name="name">stock.picking.kanban.inherit.flexibility</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.stock_picking_kanban"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="x_is_printed"/>
+                </field>
+                <xpath expr="//div[hasclass('oe_kanban_content')]" position="inside">
+                    <div t-if="record.x_is_printed.raw_value" class="text-warning">
+                        <i class="fa fa-print"/> Printed
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
